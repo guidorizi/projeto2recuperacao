@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="comentario.css">
+</head>
+<body>
+
+
+  <div class="container">
+    <div id="comment-form">
+      <button id="back-button">VOLTAR PARA PÁGINA ANTERIOR DO AIQFOME</button>
+      <h2>Adicionar Comentário</h2>
+      <form id="add-comment-form">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" required><br>
+        <label for="comment">Comentário:</label>
+        <textarea id="comment" required></textarea><br>
+        <button type="submit">Enviar Comentário</button>
+      </form>
+      <h2>Buscar Comentário</h2>
+      <div class="search-container">
+        <input type="text" id="search-input">
+        <button id="search-button">Buscar</button>
+      </div>
+    <div id="comments">
+      <h2>Comentários Postados</h2>
+      <ul id="comment-list"></ul>
+    </div>
+  </div>
+
+  <script src="comentario.js"></script>
+</body>
+</html>

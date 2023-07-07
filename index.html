@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>aiqfome - delivery de restaurantes, pet shop e conveniências no app</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="shortcut icon" href="aiqfomefavicon.png" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,900&display=swap');
+  </style>
+  <script>
+     function exibirMensagemBoasVindas() {
+            alert('Bem-vindo ao nosso website!\n\nDesenvolvido por João Victor Guidorizi e João Vitor Stopa');
+        }
+
+        function exibirRecursos() {
+            var recursos = 'Você pode:\n\n';
+            recursos += '- Adicionar qual cidade você está;\n';
+            recursos += '- Acessar nossa página de comentários e deixar seu comentário;\n';
+            recursos += '- Adicionar e excluir a imagem que quiser!';
+            alert(recursos);
+        }
+
+        window.onload = function() {
+            exibirMensagemBoasVindas();
+            setTimeout(exibirRecursos, 500);
+        }
+    // Coloque o código JavaScript aqui
+
+    class Alerta {
+      static exibir(mensagem) {
+        window.alert(mensagem);
+      }
+    }
+
+  // Função para exibir a caixa de diálogo e salvar a cidade no LocalStorage
+  function exibirCaixaDialogo() {
+            var cidade = prompt("Qual é a sua cidade?");
+            if (cidade != null && cidade !== "") {
+                localStorage.setItem("cidade", cidade);
+                exibirCidade();
+            }
+        }
+
+        // Função para exibir a cidade na tela
+        function exibirCidade() {
+            var cidade = localStorage.getItem("cidade");
+            var cidadeElemento = document.getElementById("cidade");
+            cidadeElemento.innerHTML = "Você está em: " + cidade;
+            cidadeElemento.style.display = "block";
+        }
+
+        // Função para limpar a cidade da página e do LocalStorage
+        function limparCidade() {
+            localStorage.removeItem("cidade");
+            var cidadeElemento = document.getElementById("cidade");
+            cidadeElemento.innerHTML = "";
+            cidadeElemento.style.display = "none";
+        }
+
+  </script>
+</head>
+<body>
+  <navbar id="navbar">
+    <div class="navbar-container">
+        <img src="logo navbar.png" alt="" class="logo" />
+    </div>
+</navbar>
+  <div class="box1">
+    <img src="logo navbar.png" alt="aiqfome logo" class="logo">
+    <span class="selected-city" id="selectedCity"></span>
+    <div id="cityDropdown" class="dropdown-content"></div>
+  </div>
+
+  <div class="box3">
+  
+    
+    <div class="background">
+      <div class="texto">
+        <p style="text-align: center; color: white;">oie, bem-vindo à fominhaland, eu serei sua guia pelo mundo do delivery. aqui à sua direita vemos a vila burguer, ali à sua esquerda temos o parque das pizzas, e logo à frente fica o maravilhoso banco de cupons. divirta-se! \o/</p>
+      </div>
+      <div style="text-align: center;">
+        <body>
+          <button id="openDialogButton" class="botoes">CLIQUE AQUI E DIGA SUA CIDADE</button>
+          <p id="cidade" class="hidden"></p>
+          <button id="clearButton" class="botoes">LIMPAR CIDADE</button>
+          <script>
+            class CityDialog {
+                constructor() {
+                    this.openDialogButton = document.getElementById("openDialogButton");
+                    this.cidadeElemento = document.getElementById("cidade");
+                    this.clearButton = document.getElementById("clearButton");
+                    this.initialize();
+                }
+    
+                initialize() {
+                    this.openDialogButton.addEventListener("click", this.openDialog.bind(this));
+                    this.clearButton.addEventListener("click", this.clearCity.bind(this));
+                    window.addEventListener("load", this.checkLocalStorage.bind(this));
+                }
+    
+                openDialog() {
+                    const cidade = prompt("Qual é a sua cidade?");
+                    if (cidade !== null && cidade.trim() !== "") {
+                        localStorage.setItem("cidade", cidade);
+                        this.displayCity();
+                    } else {
+                        alert("Por favor, digite o nome da sua cidade.");
+                    }
+                }
+    
+                displayCity() {
+                    const cidade = localStorage.getItem("cidade");
+                    this.cidadeElemento.innerHTML = "Você está em: " + cidade;
+                    this.cidadeElemento.classList.remove("hidden");
+                }
+    
+                clearCity() {
+                    localStorage.removeItem("cidade");
+                    this.cidadeElemento.innerHTML = "";
+                    this.cidadeElemento.classList.add("hidden");
+                }
+    
+                checkLocalStorage() {
+                    if (localStorage.getItem("cidade")) {
+                        this.displayCity();
+                    }
+                }
+            }
+    
+            const cityDialog = new CityDialog();
+        </script>
+        
+        <button onclick="redirecionar()" class="botoes">CLIQUE E ACESSE A PÁGINA DE COMENTÁRIOS</button>
+
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="box5">
+    
+    <h3>Você pode adicionar uma imagem e exclui-la!</h3>
+    <style>
+         .btn {
+            background-color: #69008A;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+        #imagem {
+            display: block;
+            max-width: 100%;
+            max-height: auto;
+            margin-top: 20px;
+        }
+    </style>
+
+    
+    <label for="input-imagem" class="btn">Adicionar Imagem</label>
+    <input type="file" id="input-imagem" accept="image/*" onchange="exibirImagem(event)">
+    
+    <img id="imagem">
+
+    <button onclick="excluirImagem()" class="btn">Excluir Imagem</button>
+
+    <script>
+        function exibirImagem(event) {
+            var imagem = document.getElementById('imagem');
+            var file = event.target.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var base64Img = e.target.result;
+                imagem.src = base64Img;
+                localStorage.setItem('imagem', base64Img);
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+        function excluirImagem() {
+            var imagem = document.getElementById('imagem');
+            if (imagem.src !== '') {
+                var confirmacao = confirm('Tem certeza que deseja excluir a imagem?');
+                if (confirmacao) {
+                    imagem.src = '';
+                    localStorage.removeItem('imagem');
+                    document.getElementById('input-imagem').value = '';
+                }
+            }
+        }
+
+        function exibirMensagemBoasVindas() {
+            alert('Bem-vindo ao nosso website!\n\nDesenvolvido por João Victor Guidorizi e João Vitor Stopa');
+        }
+
+        function exibirRecursos() {
+            var recursos = 'Você pode:\n\n';
+            recursos += '- Adicionar qual cidade você está;\n';
+            recursos += '- Acessar nossa página de comentários e deixar seu comentário;\n';
+            recursos += '- Adicionar e excluir a imagem que quiser!';
+            alert(recursos);
+        }
+
+        window.onload = function() {
+            exibirMensagemBoasVindas();
+            setTimeout(exibirRecursos, 500);
+
+            var imagemSalva = localStorage.getItem('imagem');
+            if (imagemSalva) {
+                var imagem = document.getElementById('imagem');
+                imagem.src = imagemSalva;
+            }
+        };
+      
+    </script>
+    <p class="h2debaixo" style="text-align: center;color: #7B1FA2;">como que faz, hein, aiq?🤔</p>
+    <p style="text-align: center; color: rgb(97, 95, 95);">é assim ó:</p>
+  </div>
+
+  <div class="items"></div>
+
+  <div class="caixa1">
+    <img src="app.png" class="imagem1">
+    <h3 style="color: rgb(22, 145, 145);"> quer comer o que?.</h3>
+    <p style="color: rgb(97, 95, 95)">você escolhe o rango e o restaurante.</p>
+  </div>
+
+  <div class="caixa2">
+    <img src="moto.png" class="imagem2">
+    <h3 style="color: rgb(22, 145, 145);"> pediu, pagou, entregou.</h3>
+    <p style="color: rgb(97, 95, 95);">dá para pagar no app ou na hora da entrega.</p>
+  </div>
+
+  <div class="caixa3" >
+    <img src="prato.png" class="imagem3">
+    <h3 style="color: rgb(22, 145, 145);"> procura algo especial?.</h3>
+    <p style="color: rgb(97, 95, 95);">busca e experimenta pratos variados.</p>
+  </div>
+  
+
+  <title>Comentários</title>
+  <style>
+    .comment {
+      margin-bottom: 10px;
+    }
+    .comment-content {
+      display: inline-block;
+      vertical-align: top;
+      margin-right: 10px;
+    }
+    .comment-actions {
+      display: inline-block;
+    }
+    .comment-actions button {
+      margin-right: 5px;
+    }
+  </style>
+
+  <script>
+     function redirecionar() {
+      window.location.href = "comentario.html";
+    }
+  </script>
+</body>
+</html>
